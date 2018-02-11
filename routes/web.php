@@ -12,13 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/admin', function () {
-    return view('board');
+    return view('app');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/vendor/register' , 'VendorController@show_register')->name('vendor.register');
+Route::post('/vendor/register/post' , 'VendorController@vendor_register')->name('vendor.post.register');
