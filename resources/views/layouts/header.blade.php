@@ -5,9 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>Material Design Bootstrap</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Ecommerce App</title>
     <!-- Font Awesome -->
     <!--
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
@@ -148,6 +147,16 @@
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @if(Auth::user()->isadmin == '1')
+                                <a class="dropdown-item" href="{{url('admin/dashboard')}}">Dashboard</a>
+                                @endif
+                                @if(Auth::user()->isvendor == '1')
+                                <a class="dropdown-item" href="{{url('vendor/dashboard')}}">Dashboard</a>
+                                @endif
+                                @if(Auth::user()->isvendor == '0' && Auth::user()->isadmin == '0' )
+                                <a class="dropdown-item" href="{{url('user/dashboard')}}">Dashboard</a>
+                                @endif
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -160,7 +169,7 @@
                                 </div>
                             </li>
                         @endguest
-                    <li><a class="nav-link" href="#"><i class="fas fa-lg fa-shopping-cart"></i> 1</a></li>
+                    <li><a class="nav-link" href="{{url('mycart')}}"><i class="fas fa-lg fa-shopping-cart"></i>@auth<span id="cart">{{$count}}</span>@endauth</a></li>
                     </ul>
 
                     <!-- Links -->
@@ -175,15 +184,4 @@
 
     </header>
     <!--Main Navigation-->
-     
-
-
-<div class="jumbotron">
-  <h1 class="display-3">Hello, world!</h1>
-  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-  <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <p class="lead">
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-  </p>
-</div>
+     <br><br>

@@ -5,12 +5,7 @@
 <div class="col-8"  >
 <h2>Register As Vendor</h2>
 @include('errors')
-@if(session('status'))
-<div class="alert alert-success">
-{{session('status')}}
-
-</div>
-@endif         
+@include('flash')
 <form method="POST" action="{{ route('vendor.post.register') }}">
 @csrf
   <div class="form-row">

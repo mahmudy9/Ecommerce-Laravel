@@ -16,6 +16,7 @@ class CreateOrderItemTable extends Migration
         Schema::create('order_item', function (Blueprint $table) {
             $table->integer('order_id')->unsigned();
             $table->integer('product_id')->unsigned();
+            $table->integer('vendor_id')->unsigned();
             $table->integer('quantity');
             $table->decimal('price');
             $table->timestamps();

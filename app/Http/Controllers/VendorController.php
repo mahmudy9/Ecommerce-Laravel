@@ -15,7 +15,7 @@ class VendorController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest');
+        //$this->middleware('guest');
     }
 
     public function show_register()
