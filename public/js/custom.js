@@ -30,6 +30,11 @@ function deletecat(id , url)
                 $('#modall').modal('hide');
                 $('#' + id).remove();
             },
+
+            error: function () {
+                $('#modall').modal('hide');
+                alert('can\'t delete category it has relations');
+            }
         });
     });
 }
@@ -63,6 +68,12 @@ function deletebrand(id, url) {
                 $('#modall').modal('hide');
                 $('#' + id).remove();
             },
+
+            error : function()
+                    {
+                        $('#modall').modal('hide');
+                        alert('can\'t delete brand it has relations');                        
+                    }
         });
     });
 }
@@ -114,6 +125,38 @@ function addtocart(id , url)
         success: function(data)
                 {
             $('#cart').html(data.count);
+                },
+
+        error: function()
+                {
+                    alert(' max quantity reached ');
                 }
     })
 }
+
+function destroy_cart_item(id, url)
+{
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN' : $("meta[name='csrf-token']").attr('content') 
+        }
+    })
+
+    $.ajax({
+        type: "POST" ,
+
+        url : url+'/'+id,
+
+        data : {},
+
+        success : function(data)
+                    {
+                        $('#'+id).remove();
+                    }
+    })
+}
+
+
+
+
+

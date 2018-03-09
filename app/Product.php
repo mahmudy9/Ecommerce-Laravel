@@ -31,11 +31,11 @@ class Product extends Model
 
     public function carts()
     {
-        return $this->belongsToMany('App\Cart' , 'cart_item')->withTimestamps();
+        return $this->belongsToMany('App\Cart' , 'cart_item')->withPivot('price' , 'quantity' , 'uniqid');
     }
 
     public function orders()
     {
-        return $this->belongsToMany('App\Order' , 'order_item')->withTimestamps();
+        return $this->belongsToMany('App\Order' , 'order_item' , 'product_id' , 'order_id')->withPivot('uniqid' , 'vendor_id' , 'quantity' , 'price');
     }
 }

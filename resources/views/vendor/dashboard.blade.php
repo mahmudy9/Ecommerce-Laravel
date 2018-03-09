@@ -49,18 +49,9 @@
         <div class="main-menu">
           <h5 class="sidenav-heading">Main</h5>
           <ul id="side-main-menu" class="side-menu list-unstyled">                  
-            <li><a href="{{url('admin/dashboard')}}"> <i class="icon-home"></i>Home(Orders Requests)</a></li>
-            <li><a href="{{url('admin/createproduct')}}"> <i class="icon-form"></i>Create Product</a></li>
-            <li><a href="{{url('admin/approveproducts')}}"> <i class="icon-form"></i>Approve Products</a></li>
-            <li><a href="{{url('admin/approvereviews')}}"> <i class="fa fa-bar-chart"></i>Approve Reviews</a></li>
-            <li><a href="{{url('admin/createcategory')}}"> <i class="icon-grid"></i>Create Category</a></li>
-            <li><a href="{{url('admin/createbrand')}}"> <i class="icon-grid"></i>Create Brand</a></li>
-            <li><a href="{{url('admin/createpost')}}"> <i class="icon-grid"></i>Create Post</a></li>
-            <li><a href="{{url('admin/vieworders')}}"> <i class="icon-grid"></i>View Orders</a></li>
-            <li><a href="{{url('admin/viewusers')}}"> <i class="icon-grid"></i>View Users</a></li>
-            <li><a href="{{url('admin/viewvendors')}}"> <i class="icon-grid"></i>View Vendors</a></li>
-            <li><a href="{{url('admin/viewcontacts')}}"> <i class="icon-grid"></i>View Contacts</a></li>
-            <li><a href="{{url('admin/viewsubscribers')}}"> <i class="icon-grid"></i>View Subscribers</a></li>
+            <li><a href="{{url('vendor/dashboard')}}"> <i class="icon-home"></i>Home(Orders Requests)</a></li>
+            <li><a href="{{url('vendor/createproduct')}}"> <i class="icon-form"></i>Create Product</a></li>
+            <li><a href="{{url('vendor/myproducts')}}"> <i class="icon-form"></i>My Products</a></li>
           </ul>
         </div>
       </div>

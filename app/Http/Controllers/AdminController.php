@@ -17,7 +17,7 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-
+        $this->middleware(['auth' , 'Admin']);
     }
 
 
@@ -85,7 +85,7 @@ class AdminController extends Controller
 
     public function dstroy_product($id)
     {
-
+        
     }
 
 
@@ -125,16 +125,19 @@ class AdminController extends Controller
 
     public function destroy_category($id)
     {
+        if(Product::where('category_id' , $id)->exists())
+        {
+            return response()->json([] , 400);
+        }
         $category = Category::find($id);
         $category->delete();
-        return response()->json(['success' => 'Category Deleted']);
+        return response()->json(['success' => 'Category Deleted'] , 200);
     }
 
 
     public function create_brand()
     {
         $brands = Brand::latest()->get();
-        $categories = Category::all();
         return view('admin.addbrand', compact('brands' , 'categories'));
     }
 
@@ -142,8 +145,7 @@ class AdminController extends Controller
     {
         $validator = Validator::make($request->all() , [
             'name' => 'required|min:3|unique:brands,name',
-            'description' => 'required|min:8',
-            'category' => 'required|numeric'
+            'description' => 'required|min:8'
         ]);
 
         if($validator->fails())
@@ -157,7 +159,6 @@ class AdminController extends Controller
         $brand = new Brand;
         $brand->name = $request->input('name');
         $brand->description = $request->input('description');
-        $brand->category_id = $request->input('category');
         $brand->save();
         $request->session()->flash('status' , 'Brand Has Been Added');
         
@@ -167,9 +168,13 @@ class AdminController extends Controller
 
     public function destroy_brand($id)
     {
+        if(Product::where('brand_id' , $id)->exists())
+        {
+            return response()->json(['fail' => 'can\'t delete brand'] , 400 );
+        }
         $brand = Brand::find($id);
         $brand->delete();
-        return response()->json(['success' => 'brand deleted']);
+        return response()->json(['success' => 'brand deleted'] , 200);
     }
 
 }

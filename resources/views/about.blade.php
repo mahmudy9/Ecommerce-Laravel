@@ -3,7 +3,9 @@
 @section('content')
 
 <div class="container">
-<a href="{{route('paypal')}}" > Checkout </a>
+
+<h2>This is About Page</h2>
+
 </div>
 
 @endsection

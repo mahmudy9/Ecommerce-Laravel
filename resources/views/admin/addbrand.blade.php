@@ -20,15 +20,6 @@
     <label for="exampleFormControlTextarea1">Brand Description</label>
     <textarea class="form-control" name="description" rows="3">{{old('description')}} </textarea>
   </div>
-  <div class="form-group">
-    <label for="exampleFormControlInput1">Category</label>
-    <select name="category"  class="form-control">
-      <option selected>select...</option>
-      @foreach($categories as $category)
-      <option value="{{$category->id}}">{{$category->name}}</option>
-      @endforeach
-    </select>
-  </div>
     <div class="form-group">
     <label for="exampleFormControlInput1"></label>
     <input type="submit" name="submit" class="btn btn-primary" value="Add Brand">
@@ -43,7 +34,6 @@
       <div class="card-body">
         <h5 class="card-title">{{$brand->name}}</h5>
         <p class="card-text">{{$brand->description}}</p>
-        <p class="card-text"><small>{{$brand->category->name}}</small></p>
         <button onclick="deletebrand('{{$brand->id}}' , url='{{url('admin/destroybrand')}}')" class="btn btn-danger">delete brand</button>
       </div>
     </div>

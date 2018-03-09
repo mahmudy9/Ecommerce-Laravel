@@ -3,7 +3,7 @@
 <br><br>
 
 <div class="container">
-
+<h2>{{$product->name}}</h2>
 <div class="row">
 <div class="col-4">
 <img src="{{asset('storage/products/'.$product->img)}}" width="350px" height="300px" />

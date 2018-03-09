@@ -14,6 +14,7 @@ class CreateOrderItemTable extends Migration
     public function up()
     {
         Schema::create('order_item', function (Blueprint $table) {
+            $table->string('uniqid');
             $table->integer('order_id')->unsigned();
             $table->integer('product_id')->unsigned();
             $table->integer('vendor_id')->unsigned();

@@ -30,7 +30,39 @@
 }
 
 
+/**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+ * how you can use CSS to style your Element's container.
+ */
+.StripeElement {
+  background-color: white;
+  height: 40px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+
 </style>
+
+
+<script src="https://js.stripe.com/v3/"></script>
+
 
 </head>
 
@@ -57,58 +89,18 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Categories <span class="caret"></span></a>
               <div class="dropdown-menu" aria-labelledby="themes">
-                <a class="dropdown-item" href="../default/">Categories</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="../cerulean/">Cerulean</a>
-                <a class="dropdown-item" href="../cosmo/">Cosmo</a>
-                <a class="dropdown-item" href="../cyborg/">Cyborg</a>
-                <a class="dropdown-item" href="../darkly/">Darkly</a>
-                <a class="dropdown-item" href="../flatly/">Flatly</a>
-                <a class="dropdown-item" href="../journal/">Journal</a>
-                <a class="dropdown-item" href="../litera/">Litera</a>
-                <a class="dropdown-item" href="../lumen/">Lumen</a>
-                <a class="dropdown-item" href="../lux/">Lux</a>
-                <a class="dropdown-item" href="../materia/">Materia</a>
-                <a class="dropdown-item" href="../minty/">Minty</a>
-                <a class="dropdown-item" href="../pulse/">Pulse</a>
-                <a class="dropdown-item" href="../sandstone/">Sandstone</a>
-                <a class="dropdown-item" href="../simplex/">Simplex</a>
-                <a class="dropdown-item" href="../sketchy/">Sketchy</a>
-                <a class="dropdown-item" href="../slate/">Slate</a>
-                <a class="dropdown-item" href="../solar/">Solar</a>
-                <a class="dropdown-item" href="../spacelab/">Spacelab</a>
-                <a class="dropdown-item" href="../superhero/">Superhero</a>
-                <a class="dropdown-item" href="../united/">United</a>
-                <a class="dropdown-item" href="../yeti/">Yeti</a>
+                @foreach($categories as $category)
+                <a class="dropdown-item" href="{{url('category/'.$category->id.'/'.strtolower(str_replace(' ', '-' ,$category->name)))}}">{{$category->name}}</a>
+                @endforeach
               </div>
             </li>
 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Brands <span class="caret"></span></a>
               <div class="dropdown-menu" aria-labelledby="themes">
-                <a class="dropdown-item" href="../default/">Brands</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="../cerulean/">Cerulean</a>
-                <a class="dropdown-item" href="../cosmo/">Cosmo</a>
-                <a class="dropdown-item" href="../cyborg/">Cyborg</a>
-                <a class="dropdown-item" href="../darkly/">Darkly</a>
-                <a class="dropdown-item" href="../flatly/">Flatly</a>
-                <a class="dropdown-item" href="../journal/">Journal</a>
-                <a class="dropdown-item" href="../litera/">Litera</a>
-                <a class="dropdown-item" href="../lumen/">Lumen</a>
-                <a class="dropdown-item" href="../lux/">Lux</a>
-                <a class="dropdown-item" href="../materia/">Materia</a>
-                <a class="dropdown-item" href="../minty/">Minty</a>
-                <a class="dropdown-item" href="../pulse/">Pulse</a>
-                <a class="dropdown-item" href="../sandstone/">Sandstone</a>
-                <a class="dropdown-item" href="../simplex/">Simplex</a>
-                <a class="dropdown-item" href="../sketchy/">Sketchy</a>
-                <a class="dropdown-item" href="../slate/">Slate</a>
-                <a class="dropdown-item" href="../solar/">Solar</a>
-                <a class="dropdown-item" href="../spacelab/">Spacelab</a>
-                <a class="dropdown-item" href="../superhero/">Superhero</a>
-                <a class="dropdown-item" href="../united/">United</a>
-                <a class="dropdown-item" href="../yeti/">Yeti</a>
+                @foreach($brands as $brand)
+                <a class="dropdown-item" href="{{url('brand/'.$brand->id.'/'.strtolower(str_replace(' ' , '-' ,$brand->name)))}}">{{$brand->name}}</a>
+                @endforeach
               </div>
             </li>
 
@@ -120,7 +112,7 @@
                             <a class="nav-link" href="{{url('contact')}}">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url('About')}}">About</a>
+                            <a class="nav-link" href="{{url('about')}}">About</a>
                         </li>
 
                     </ul>
@@ -169,7 +161,15 @@
                                 </div>
                             </li>
                         @endguest
-                    <li><a class="nav-link" href="{{url('mycart')}}"><i class="fas fa-lg fa-shopping-cart"></i>@auth<span id="cart">{{$count}}</span>@endauth</a></li>
+                    @auth
+                    @if(Auth::user()->isvendor==0 && Auth::user()->isadmin==0)
+
+                    <li><a class="nav-link" href="{{url('user/cart')}}"><i class="fas fa-lg fa-shopping-cart"></i>
+                    <span id="cart">{{$count}}</span>
+                    </a></li>
+                    @endif
+                    @endauth
+
                     </ul>
 
                     <!-- Links -->

@@ -14,6 +14,7 @@ class CreateCartItemTable extends Migration
     public function up()
     {
         Schema::create('cart_item', function (Blueprint $table) {
+            $table->string('uniqid');
             $table->integer('cart_id')->unsigned();
             $table->integer('product_id')->unsigned();
             $table->integer('quantity');
