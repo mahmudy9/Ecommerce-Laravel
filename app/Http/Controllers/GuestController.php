@@ -114,4 +114,19 @@ class GuestController extends Controller
         return redirect()->back();
     }
 
+
+
+    public function category($id)
+    {
+        $products = Product::where('category_id' , $id)->paginate(9);
+        return view('category' , compact('products'));
+    }
+
+
+    public function brand($id)
+    {
+        $products = Product::where('brand_id' , $id)->paginate(9);
+        return view('brand' , compact('products'));
+    }
+
 }

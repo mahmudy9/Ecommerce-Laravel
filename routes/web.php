@@ -33,6 +33,8 @@ Route::get('/contact' , 'GuestController@contact');
 Route::post('/storecontact' , 'GuestController@storecontact');
 Route::get('/about' , 'GuestController@about');
 Route::post('/subscribe' , 'GuestController@subscribe');
+Route::get('/category/{id}/{slug}' , 'GuestController@category');
+Route::get('/brand/{id}/{slug}' , 'GuestController@brand');
 
 
 Route::get('/vendor/register' , 'VendorController@show_register')->name('vendor.register');
