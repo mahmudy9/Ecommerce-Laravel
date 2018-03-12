@@ -40,7 +40,7 @@
         <div class="sidenav-header d-flex align-items-center justify-content-center">
           <!-- User Info-->
           <div class="sidenav-header-inner text-center"><img src="img/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-            <h2 class="h5">Anderson Hardy</h2><span>Web Developer</span>
+            <h2 class="h5"></h2><span>Vendor</span>
           </div>
           <!-- Small Brand information, appears on minimized sidebar-->
           <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
@@ -52,6 +52,11 @@
             <li><a href="{{url('vendor/dashboard')}}"> <i class="icon-home"></i>Home(Orders Requests)</a></li>
             <li><a href="{{url('vendor/createproduct')}}"> <i class="icon-form"></i>Create Product</a></li>
             <li><a href="{{url('vendor/myproducts')}}"> <i class="icon-form"></i>My Products</a></li>
+            <li><a href="{{url('vendor/myapproved')}}"> <i class="icon-form"></i>My Approved Products</a></li>
+            <li><a href="{{url('vendor/mydisapproved')}}"> <i class="icon-form"></i>My Disapproved Products</a></li>
+            <li><a href="{{url('vendor/mysettings')}}"> <i class="icon-form"></i>My Settings</a></li>
+            <li><a href="{{url('vendor/changepass')}}"> <i class="icon-form"></i>Password</a></li>
+
           </ul>
         </div>
       </div>
@@ -73,23 +78,9 @@
                  </li>
 
                  <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                <a class="nav-link" href="{{url('vendor/dashboard')}}" role="button"  aria-expanded="false">
+                                    Dashboard:{{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @if(Auth::user()->isadmin == '1')
-                                <a class="dropdown-item" href="{{url('admin/dashboard')}}">Dashboard</a>
-                                @endif
-
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
                             </li>
                             
               </ul>

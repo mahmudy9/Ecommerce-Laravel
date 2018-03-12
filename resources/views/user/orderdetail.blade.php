@@ -28,7 +28,11 @@ $num = 1;
 <td>{{$order->user->name}}</td>
 <td>{{$order->pivot->quantity}}</td>
 <td>{{$order->pivot->price}}</td>
-<td><a href="{{url('/user/review/'.$order->id)}}" class="btn btn-info">Write Review</a></td>
+@if($order->pivot->reviewed != '1')
+<td><a href="{{url('/user/review/'.$order->pivot->uniqid)}}" class="btn btn-info">Write Review</a></td>
+@else
+<td>Review Written</td>
+@endif
 </tr>
 @php
 $num++

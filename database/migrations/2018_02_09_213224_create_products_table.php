@@ -24,7 +24,8 @@ class CreateProductsTable extends Migration
             $table->string('img');
             $table->integer('quantity');
             $table->decimal('price');
-            $table->integer('approved')->default('0');
+            $table->tinyinteger('approved')->default('0');
+            $table->tinyinteger('seen')->default('0');
             $table->timestamps();
         });
     }

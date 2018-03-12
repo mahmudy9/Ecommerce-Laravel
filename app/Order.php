@@ -15,7 +15,7 @@ class Order extends Model
    
     public function products()
     {
-        return $this->belongsToMany('App\Product' , 'order_item' , 'order_id' ,'product_id')->withPivot('uniqid' , 'vendor_id' , 'quantity' , 'price');
+        return $this->belongsToMany('App\Product' , 'order_item' , 'order_id' ,'product_id')->withPivot('uniqid' , 'vendor_id' , 'quantity' , 'price' , 'reviewed');
     }
 
 

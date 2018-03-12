@@ -20,7 +20,7 @@ class CreateOrderItemTable extends Migration
             $table->integer('vendor_id')->unsigned();
             $table->integer('quantity');
             $table->decimal('price');
-            $table->timestamps();
+            $table->tinyInteger('reviewed')->default(0);
         });
     }
 

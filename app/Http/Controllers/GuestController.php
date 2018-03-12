@@ -8,6 +8,7 @@ use App\Review;
 use App\Cart;
 use App\Post;
 use App\Contact;
+use App\Subscriber;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +20,10 @@ class GuestController extends Controller
     public function showproduct($id)
     {
         $product = Product::find($id);
+        if($product->approved != 1)
+        {
+            abort(404);
+        }
         $reviews = Review::where('product_id' , $id)->get();
 
         return view('product' , compact('product' , 'reviews'));
@@ -79,4 +84,34 @@ class GuestController extends Controller
     {
         return view('about');
     }
+
+
+    public function showpost($id)
+    {
+        $post = Post::find($id);
+        return view('showpost' , compact('post'));
+    }
+
+
+    public function subscribe(Request $request)
+    {
+        $validator = Validator::make($request->all() , [
+            'name' => 'required|min:3',
+            'email' => 'required|email'
+        ]);
+        if($validator->fails())
+        {
+            return redirect()
+            ->back()
+            ->withErrors($validator)
+            ->withInput();
+        }
+        $subscriber = new Subscriber;
+        $subscriber->name = $request->input('name');
+        $subscriber->email = $request->input('email');
+        $subscriber->save();
+        $request->session()->flash('status' , ' you are Subscibed to newsletter');
+        return redirect()->back();
+    }
+
 }

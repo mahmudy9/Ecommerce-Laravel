@@ -30,6 +30,21 @@
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+            <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
+
+    <script>
+        tinymce.init({
+            selector : "#mytext",
+            height   : 400,
+            width    : 700,
+            //toolbar: 'undo redo | styleselect | bold italic | link image',
+            plugins : 'codesample link image hr table textcolor contextmenu lists charmap preview anchor spellchecker searchreplace code textcolor',
+            toolbar1  : 'undo redo styleselect bold italic forecolor backcolor alignleft aligncenter alignright charmap preview anchor spellchecker searchreplace ',
+             toolbar2 :'bullist numlist outdent indent hr blockquote table tabledelete textcolor codesample code link unlink image source',
+        });
+    </script>
+
+
   </head>
   <body>
     <!-- Side Navbar -->
@@ -40,7 +55,7 @@
         <div class="sidenav-header d-flex align-items-center justify-content-center">
           <!-- User Info-->
           <div class="sidenav-header-inner text-center"><img src="img/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
-            <h2 class="h5">Anderson Hardy</h2><span>Web Developer</span>
+            <h2 class="h5"></h2><span>Admin</span>
           </div>
           <!-- Small Brand information, appears on minimized sidebar-->
           <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
@@ -51,16 +66,31 @@
           <ul id="side-main-menu" class="side-menu list-unstyled">                  
             <li><a href="{{url('admin/dashboard')}}"> <i class="icon-home"></i>Home(Orders Requests)</a></li>
             <li><a href="{{url('admin/createproduct')}}"> <i class="icon-form"></i>Create Product</a></li>
-            <li><a href="{{url('admin/approveproducts')}}"> <i class="icon-form"></i>Approve Products</a></li>
+            <li><a href="{{url('admin/myapproved-products')}}"> <i class="icon-form"></i>My Approved Products</a></li>
+            <li><a href="{{url('admin/mydisapproved-products')}}"> <i class="icon-form"></i>My DisApproved Products</a></li>
+            
+
+            <li><a href="{{url('admin/approve-products')}}"> <i class="icon-form"></i>Approve Products</a></li>
+            <li><a href="{{url('admin/approved-products')}}"> <i class="icon-form"></i>Approved Products</a></li>
+            <li><a href="{{url('admin/disapproved-products')}}"> <i class="icon-form"></i>DisApproved Products</a></li>
+
             <li><a href="{{url('admin/approvereviews')}}"> <i class="fa fa-bar-chart"></i>Approve Reviews</a></li>
+            <li><a href="{{url('admin/approvedreviews')}}"> <i class="fa fa-bar-chart"></i>Approved Reviews</a></li>
+
             <li><a href="{{url('admin/createcategory')}}"> <i class="icon-grid"></i>Create Category</a></li>
             <li><a href="{{url('admin/createbrand')}}"> <i class="icon-grid"></i>Create Brand</a></li>
             <li><a href="{{url('admin/createpost')}}"> <i class="icon-grid"></i>Create Post</a></li>
+            <li><a href="{{url('admin/posts')}}"> <i class="icon-grid"></i>Posts List</a></li>
+
             <li><a href="{{url('admin/vieworders')}}"> <i class="icon-grid"></i>View Orders</a></li>
             <li><a href="{{url('admin/viewusers')}}"> <i class="icon-grid"></i>View Users</a></li>
             <li><a href="{{url('admin/viewvendors')}}"> <i class="icon-grid"></i>View Vendors</a></li>
             <li><a href="{{url('admin/viewcontacts')}}"> <i class="icon-grid"></i>View Contacts</a></li>
             <li><a href="{{url('admin/viewsubscribers')}}"> <i class="icon-grid"></i>View Subscribers</a></li>
+            <li><a href="{{url('admin/settings')}}"> <i class="icon-grid"></i>Change Settings</a></li>
+            <li><a href="{{url('admin/password')}}"> <i class="icon-grid"></i>Change Password</a></li>
+
+
           </ul>
         </div>
       </div>
@@ -82,24 +112,10 @@
                  </li>
 
                  <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                <a class="nav-link" href="{{url('admin/dashboard')}}" role="button" aria-expanded="false">
+                                   Dashboard: {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @if(Auth::user()->isadmin == '1')
-                                <a class="dropdown-item" href="{{url('admin/dashboard')}}">Dashboard</a>
-                                @endif
-
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                 </li>
                             
               </ul>
             </div>

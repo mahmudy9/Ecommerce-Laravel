@@ -25,7 +25,7 @@
         <label for="review" >Write Review</label>
         <textarea name="review" class="form-control" cols="30" rows="6" >{{old('review')}}</textarea>
     </div>
-    <input type="hidden" value="{{$product->id}}" name="product_id" >
+    <input type="hidden" value="{{$id}}" name="id" >
     <div class="form-group" >
         <button type="submit" class="btn btn-success">Submit Review</button>
     </div>

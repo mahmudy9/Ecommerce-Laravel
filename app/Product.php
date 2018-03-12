@@ -36,6 +36,12 @@ class Product extends Model
 
     public function orders()
     {
-        return $this->belongsToMany('App\Order' , 'order_item' , 'product_id' , 'order_id')->withPivot('uniqid' , 'vendor_id' , 'quantity' , 'price');
+        return $this->belongsToMany('App\Order' , 'order_item' , 'product_id' , 'order_id')->withPivot('uniqid' , 'vendor_id' , 'quantity' , 'price' , 'reviewed');
+    }
+
+
+    public function requests()
+    {
+        return $this->hasMany('App\Request' , 'product_id');
     }
 }

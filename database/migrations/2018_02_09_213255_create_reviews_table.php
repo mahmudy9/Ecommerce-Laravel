@@ -17,6 +17,7 @@ class CreateReviewsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('product_id')->unsigned();
+            $table->string('uniqid');
             $table->text('body');
             $table->integer('approved')->default('0');
             $table->timestamps();

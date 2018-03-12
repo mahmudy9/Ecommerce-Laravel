@@ -32,7 +32,23 @@
   </div>
 </form>
 
-</div></div>
+</div>
+<div class="col-4">
+<form action="{{url('/subscribe')}}" method="post" >
+@csrf
+  <div class="form-group">
+    <label for="exampleInputEmail1">Name</label>
+    <input type="text" name="name" value="{{old('name')}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Email</label>
+    <input type="email"  class="form-control" value="{{old('email')}}" name="email" id="exampleInputPassword1" placeholder="email@email.com" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Subscribe</button>
+</form>
+
+</div>
+</div>
 </div>
 
 @endsection

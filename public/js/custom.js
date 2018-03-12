@@ -15,7 +15,6 @@ function deletecat(id , url)
     
 
     $('#modall').modal('show');
-    //var url = "{{url('/admin/destroycategory')}}";
     
     $('#delbtn').click(function (e) {
         e.preventDefault();
@@ -157,6 +156,212 @@ function destroy_cart_item(id, url)
 }
 
 
+function disapprove(id , url)
+{
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN' : $("meta[name='csrf-token']").attr('content')
+        }
+    })
+
+    $.ajax({
+        type: "POST" ,
+
+        url : url + '/' + id,
+
+        data: {},
+
+        success: function(data)
+                    {
+                        $('#'+id).remove();
+                    }
+    })
+
+}
+
+
+function approve_product(id, url) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+        }
+    })
+
+    $.ajax({
+        type: "POST",
+
+        url: url + '/' + id,
+
+        data: {},
+
+        success: function (data) {
+            $('#' + id).remove();
+        }
+    })
+
+}
+
+
+function seen(id, url) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+        }
+    })
+
+    $.ajax({
+        type: "POST",
+
+        url: url + '/' + id,
+
+        data: {},
+
+        success: function (data) {
+            $('#' + id).remove();
+        }
+    })
+
+}
 
 
 
+function approve_review(id, url) 
+{
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+        }
+    })
+
+    $.ajax({
+        type: "POST",
+
+        url: url + '/' + id,
+
+        data: {},
+
+        success: function (data) {
+            $('#' + id).remove();
+        }
+    })
+
+}
+
+
+function disapprove_review(id, url) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+        }
+    })
+
+    $.ajax({
+        type: "POST",
+
+        url: url + '/' + id,
+
+        data: {},
+
+        success: function (data) {
+            $('#' + id).remove();
+        }
+    })
+
+}
+
+
+
+function delete_review(id, url) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+        }
+    })
+
+    $.ajax({
+        type: "POST",
+
+        url: url + '/' + id,
+
+        data: {},
+
+        success: function (data) {
+            $('#' + id).remove();
+        }
+    })
+
+}
+
+
+function delete_post(id, url) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+        }
+    })
+
+    $('#modall').modal('show');
+
+    $('#delbtn').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+
+            url: url+'/'+id,
+
+            data: {},
+
+            success: function (data) {
+                $('#modall').modal('hide');
+                $('#' + id).remove();
+            }
+        });
+    });
+}
+
+
+
+
+function delete_contact(id, url) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+        }
+    })
+
+    $.ajax({
+        type: "POST",
+
+        url: url + '/' + id,
+
+        data: {},
+
+        success: function (data) {
+            $('#' + id).remove();
+        }
+    })
+
+}
+
+
+
+function delete_sub(id, url) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+        }
+    })
+
+    $.ajax({
+        type: "POST",
+
+        url: url + '/' + id,
+
+        data: {},
+
+        success: function (data) {
+            $('#' + id).remove();
+        }
+    })
+
+}

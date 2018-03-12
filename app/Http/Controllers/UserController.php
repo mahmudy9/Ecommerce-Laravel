@@ -8,6 +8,7 @@ use App\Product;
 use App\User;
 use App\Order;
 use App\Review;
+use App\Request as Req;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -47,6 +48,10 @@ class UserController extends Controller
         }
         
         $product = Product::find($product_id);
+        if($product->approved != 1)
+        {
+            abort(404);
+        }
         $items_count = DB::table('cart_item')->where([
             ['product_id' , '=' , $product->id],
             ['cart_id' , '=' , $cart_id]
@@ -177,7 +182,7 @@ class UserController extends Controller
         $total = 0;
         foreach($carts->products as $item)
         {
-            $total =+ $item->pivot->price;
+            $total = $total + $item->pivot->price;
         }
 
         
@@ -215,6 +220,14 @@ class UserController extends Controller
                     'price' => $item->pivot->price
                 ]);
 
+                $request = new Req;
+                $request->uniqid = $uniqid;
+                $request->cust_id = Auth::id();
+                $request->vendor_id = $item->vendor_id;
+                $request->product_id = $item->id;
+                $request->quantity = $item->pivot->quantity;
+                $request->save(); 
+
                 $product = Product::find($item->id);
                 $qty = $product->quantity - 1;
                 $product->quantity = $qty;
@@ -248,8 +261,19 @@ class UserController extends Controller
 
     public function write_review($id)
     {
-        $product = Product::find($id);
-        return view('user.review' , compact('id' , 'product'));
+        $orderitem = DB::table('order_item')->where('uniqid' , $id)->get();
+        $order = Order::find($orderitem[0]->order_id);
+        $user_id = $order->user_id;
+        if(Auth::id() != $user_id)
+        {
+            return abort(404);
+        }
+        if($orderitem[0]->reviewed == 1)
+        {
+            return abort(404);
+        }
+        $product = Product::find($orderitem[0]->product_id);
+        return view('user.review' , compact('product' , 'id'));
     }
 
 
@@ -257,7 +281,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all() , [
             'review' => 'required|min:12|max:400',
-            'product_id' => 'required|numeric'
+            'id' => 'required'
         ]);
 
         if($validator->fails())
@@ -268,13 +292,61 @@ class UserController extends Controller
             ->withInput();
         }
 
+        $orderitem = DB::table('order_item')->where('uniqid' , $request->input('id'))->get();
+
+        $order = Order::find($orderitem[0]->order_id);
+        if($order->user_id != Auth::id() || $orderitem[0]->reviewed == 1 )
+        {
+            return abort(404);
+        }
+
+        $item = DB::table('order_item')->where('uniqid' , $request->input('id'))->update(['reviewed' => 1]);
+
         $review = new Review;
         $review->user_id = Auth::id();
-        $review->product_id = $request->input('product_id');
+        $review->product_id = $orderitem[0]->product_id;
+        $review->uniqid = $request->input('id');
         $review->body = $request->input('review');
         $review->approved = 0;
         $review->save();
         return redirect('/user/orders');
+    }
+
+
+
+    public function settings()
+    {
+        $user = User::find(Auth::id());
+        return view('user.settings' , compact('user'));
+    }
+
+
+    public function store_settings(Request $request)
+    {
+        $validator = Validator::make($request->all() , [
+            'name' => 'required|min:6',
+            'email' => 'required|email',
+            'address' => 'required|min:8',
+            'city' => 'required|min:4',
+            'phone' => 'required|min:8|numeric'
+        ]);
+
+        if($validator->fails())
+        {
+            return redirect()
+            ->back()
+            ->withErrors($validator);
+        }
+
+        $user = User::find(Auth::id());
+        $user->email = $request->input('email');
+        $user->name = $request->input('name');
+        $user->address = $request->input('address');
+        $user->city = $request->input('city');
+        $user->phone = $request->input('phone');
+        $user->save();
+        $request->session()->flash('status' , 'Data Updated');
+        return redirect()->back();
     }
 
 

@@ -17,8 +17,18 @@
 <p>Category: {{$product->category->name}}</p>
 <p>Brand: {{$product->brand->name}}</p>
 <p><h3>Price: {{$product->price}} $</h3></p>
-<p><button class="btn btn-success" 
-@auth onclick="addtocart('{{$product->id}}' , '{{url('addtocart')}}')" @else onclick="window.location.href='{{route('login')}}'" @endauth >Add To Cart</button>
+<p>
+@auth
+@if(Auth::user()->isadmin == 0 && Auth::user()->isvendor == 0 )
+<button class="btn btn-success" 
+
+ onclick="addtocart('{{$product->id}}' , '{{url('addtocart')}}')" >Add To Cart</button>
+ @endif
+ @else
+ <button class="btn btn-success" onclick="window.location.href='{{route('login')}}'"  >Add To Cart</button>
+
+
+@endauth
 </div>
 </div>
 

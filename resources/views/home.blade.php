@@ -12,7 +12,7 @@
 @foreach ($products as $product)
   <div id="{{$product->id}}" class="col-4">
   <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="{{asset('storage/products/'.$product->img)}}" width="200px" height="200px" alt="Card image cap">
+  <img class="card-img-top" src="{{asset('storage/products/'.$product->img)}}" width="200px" height="300px" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">{{substr($product->name , 0 , 22)}}</h5>
     <p class="card-text">{{substr($product->description,0 , 100)}}</p>
@@ -52,6 +52,6 @@
 
     </main>
     <!--Main layout-->
-
+{{$products->links('paginator')}}
     @endsection
 
