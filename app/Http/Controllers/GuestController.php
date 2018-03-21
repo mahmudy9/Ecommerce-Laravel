@@ -22,9 +22,9 @@ class GuestController extends Controller
         $product = Product::find($id);
         if($product->approved != 1)
         {
-            abort(404);
+            return abort(404);
         }
-        $reviews = Review::where('product_id' , $id)->get();
+        $reviews = Review::where(['product_id' => $id , 'approved' => 1])->get();
 
         return view('product' , compact('product' , 'reviews'));
     }
@@ -118,15 +118,22 @@ class GuestController extends Controller
 
     public function category($id)
     {
-        $products = Product::where('category_id' , $id)->paginate(9);
+        $products = Product::where(['category_id' => $id , 'approved' => 1])->paginate(9);
         return view('category' , compact('products'));
     }
 
 
     public function brand($id)
     {
-        $products = Product::where('brand_id' , $id)->paginate(9);
+        $products = Product::where(['brand_id' => $id , 'approved' => 1 ])->paginate(9);
         return view('brand' , compact('products'));
+    }
+
+
+    public function vendor($id)
+    {
+        $products = Product::where(['vendor_id' => $id , 'approved' => 1])->paginate(9);
+        return view('vendor' , compact('products'));
     }
 
 }

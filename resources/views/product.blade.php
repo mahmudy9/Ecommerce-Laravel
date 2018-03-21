@@ -4,7 +4,7 @@
 
 <div class="container">
 <h2>{{$product->name}}</h2>
-<div class="row">
+<div class="row justify-content-center">
 <div class="col-4">
 <img src="{{asset('storage/products/'.$product->img)}}" width="350px" height="300px" />
 </div>
@@ -13,9 +13,14 @@
 </div>
 
 <div class="col-4">
-<p>Vendor: {{$product->user->name}}</p>
-<p>Category: {{$product->category->name}}</p>
-<p>Brand: {{$product->brand->name}}</p>
+@php
+$cslug = strtolower(str_replace( ' ' , '-' ,$product->category->name));
+$bslug = strtolower(str_replace( ' ' , '-' ,$product->brand->name));
+
+@endphp
+<p>Vendor: <a href="{{url('vendor/'.$product->user->id)}}">{{$product->user->name}}</a></p>
+<p>Category: <a href="{{url('category/'.$product->category->id.'/'.$cslug)}}" >{{$product->category->name}}</a></p>
+<p>Brand: <a href="{{url('brand/'.$product->brand->id.'/'.$bslug)}}" >{{$product->brand->name}}</a></p>
 <p><h3>Price: {{$product->price}} $</h3></p>
 <p>
 @auth
@@ -30,12 +35,27 @@
 
 @endauth
 </div>
+<div class="col-8">
+@foreach ($reviews as $review )
+    
+<div class="card">
+  <div class="card-header">
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">User: {{$review->user->name}}</h5>
+    <p class="card-text">{{$review->body}}</p>
+    <!--a href="#" class="btn btn-primary">Go somewhere</a-->
+  </div>
+</div>
+<br>
+@endforeach
+
+</div>
 </div>
 
 
 
 </div>
-
 
 
 

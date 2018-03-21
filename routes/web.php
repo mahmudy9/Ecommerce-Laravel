@@ -51,6 +51,7 @@ Route::get('/vendor/mysettings' , 'VendorController@settings');
 Route::post('/vendor/updatesettings' , 'VendorController@update_settings');
 Route::get('/vendor/changepass' , 'VendorController@change_pass');
 Route::post('/vendor/postpass' , 'VendorController@post_pass');
+Route::get('/vendor/{id}' , 'GuestController@vendor');
 
 
 Route::post('/addtocart/{product_id}' , 'UserController@add_to_cart');
